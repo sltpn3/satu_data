@@ -2,6 +2,9 @@ from db.base_class import Base
 from schemas.user_schema import User
 from schemas.opd_schema import OPD
 from schemas.role_schema import Role
+from schemas.status_schema import Status
+from schemas.master_data_schema import MasterData
+from schemas.input_data_schema import InputData
 # from app.schemas.user_cms_schema import UserCMS
 # from app.schemas.skpd_schema import SKPD
 # from app.schemas.role_menu_schema import RoleMenuRelation

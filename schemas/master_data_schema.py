@@ -9,7 +9,7 @@ from db.base_class import Base
 class MasterData(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(512), nullable=False)
-    opd_id = Column(Integer, ForeignKey('opd.id'))  # Foreign Key
+    urusan_id = Column(Integer, ForeignKey('urusan.id'))  # Foreign Key
     satuan = Column(String(32), nullable=True)
     parent_id = Column(Integer, ForeignKey(
         'master_data.id'), index=True)

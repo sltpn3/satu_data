@@ -17,3 +17,5 @@ class User(Base):
     # Relationship
     organisasi = relationship("OPD", back_populates="users")
     role = relationship("Role", back_populates="users")
+    input_histories = relationship(
+        "InputHistory", back_populates="user", order_by="desc(InputHistory.created_at)")

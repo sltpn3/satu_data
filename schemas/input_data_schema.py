@@ -13,3 +13,6 @@ class InputData(Base):
     created_by = Column(Integer, ForeignKey(
         'user.id'), index=True)
     year = Column(Integer)
+
+    # Relationship
+    input_histories = relationship("InputHistory", back_populates="input_data")

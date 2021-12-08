@@ -5,6 +5,8 @@ from schemas.role_schema import Role
 from schemas.status_schema import Status
 from schemas.master_data_schema import MasterData
 from schemas.input_data_schema import InputData
+from schemas.input_history_schema import InputHistory
+from schemas.urusan_schema import Urusan
 # from app.schemas.user_cms_schema import UserCMS
 # from app.schemas.skpd_schema import SKPD
 # from app.schemas.role_menu_schema import RoleMenuRelation

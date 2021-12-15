@@ -19,3 +19,4 @@ class User(Base):
     role = relationship("Role", back_populates="users")
     input_histories = relationship(
         "InputHistory", back_populates="user", order_by="desc(InputHistory.created_at)")
+    status_updates = relationship("StatusUpdate", back_populates="updated_by")

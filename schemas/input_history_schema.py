@@ -19,3 +19,4 @@ class InputHistory(Base):
     # Relationship
     input_data = relationship("InputData", back_populates="input_histories")
     user = relationship("User", back_populates="input_histories")
+    status_updates = relationship("StatusUpdate", back_populates="input_history")

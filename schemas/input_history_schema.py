@@ -1,4 +1,4 @@
-from sqlalchemy import Integer, String, Column, Boolean, DateTime, ForeignKey
+from sqlalchemy import Integer, String, Column, Boolean, DateTime, ForeignKey, Float, Text
 from sqlalchemy.orm import relationship, backref
 
 from db.base_class import Base
@@ -12,7 +12,9 @@ class InputHistory(Base):
         'input_data.id'), index=True)
     created_by = Column(Integer, ForeignKey(
         'user.id'), index=True)
-    value = Column(Integer)
+    value_int = Column(Integer, nullable=True)
+    value_float = Column(Float, nullable=True)
+    value_text = Column(Text, nullable=True)
     revision = Column(Integer)
     created_at = Column(DateTime)
 

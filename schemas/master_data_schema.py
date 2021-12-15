@@ -10,9 +10,14 @@ class MasterData(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(512), nullable=False)
     urusan_id = Column(Integer, ForeignKey('urusan.id'))  # Foreign Key
-    satuan = Column(String(32), nullable=True)
+    satuan = Column(Integer, ForeignKey('satuan.id'))
     parent_id = Column(Integer, ForeignKey(
         'master_data.id'), index=True)
+    nasional = Column(Boolean, default=False)
+    provinsi = Column(Boolean, default=False)
+    kabupaten = Column(Boolean, default=False)
+    kecamatan = Column(Boolean, default=False)
+    timeframe = Column(String(128), default='tahunan') # tahunan, semester, triwulan, bulanan, mingguan
 
     # Relationship
     children = relationship("MasterData",

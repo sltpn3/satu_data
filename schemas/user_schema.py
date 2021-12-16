@@ -13,6 +13,10 @@ class User(Base):
     password = Column(String(32))
     opd_id = Column(Integer, ForeignKey('opd.id'))  # Foreign Key
     role_id = Column(Integer, ForeignKey('role.id'))  # Foreign Key
+    nip = Column(String(32))
+    no_hp = Column(String(32))
+    no_kantor = Column(String(32))
+    jabatan = Column(String(128))
 
     # Relationship
     organisasi = relationship("OPD", back_populates="users")

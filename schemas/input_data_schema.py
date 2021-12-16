@@ -1,4 +1,5 @@
-from sqlalchemy import Integer, String, Column, Boolean, DateTime, ForeignKey
+from typing import Text
+from sqlalchemy import Integer, String, Column, Boolean, DateTime, ForeignKey, Date
 from sqlalchemy.orm import relationship, backref
 
 from db.base_class import Base
@@ -13,6 +14,9 @@ class InputData(Base):
     created_by = Column(Integer, ForeignKey(
         'user.id'), index=True)
     year = Column(Integer)
+    from_date = Column(Date)
+    to_date = Column(Date)
+    notes = Column(String(256))
 
     # Relationship
     input_histories = relationship("InputHistory", back_populates="input_data")

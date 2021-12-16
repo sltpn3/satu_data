@@ -36,7 +36,6 @@ router = APIRouter(
     "/",
     responses=http_response(201, ResultModel),
     status_code=201,
-    # summary="createNewUser",
 )
 async def create_new_satuan_type(
         *,
@@ -46,6 +45,67 @@ async def create_new_satuan_type(
     try:
         _type = crud.satuan_type.create(db=db, obj_in=type_in)
         return ResultModel(data=_type.__dict__)
+    except Exception as e:
+        print(e)
+        print(sys.exc_info())
+        response.status_code = 500
+        return ResultModel(message=str(type(e)))
+
+
+@router.post(
+    "/{type_id}",
+    responses=http_response(201, ResultModel),
+    status_code=201,
+)
+async def update_satuan_type(
+        *,
+        type_id: int,
+        type_in: SatuanTypeUpdate,
+        db: Session = Depends(deps.get_db),
+        response: Response) -> ResultModel:
+    try:
+        type_old = crud.satuan_type.get(db=db, id=type_id)
+        _type = crud.satuan_type.update(db=db, db_obj=type_old, obj_in=type_in)
+        return ResultModel(data=_type.__dict__)
+    except Exception as e:
+        print(e)
+        print(sys.exc_info())
+        response.status_code = 500
+        return ResultModel(message=str(type(e)))
+
+
+@router.delete(
+    "/{type_id}",
+    responses=http_response(200, ResultModel),
+)
+async def delete_satuan_type(
+        *,
+        type_id: int,
+        db: Session = Depends(deps.get_db),
+        response: Response) -> ResultModel:
+    try:
+        _type = crud.satuan_type.remove(
+            db=db, id=type_id)
+        return ResultModel(data=_type.__dict__)
+    except Exception as e:
+        print(e)
+        print(sys.exc_info())
+        response.status_code = 500
+        return ResultModel(message=str(type(e)))
+
+
+@router.get('/{type_id}', responses=http_response(200, ResultModel))
+async def fetch_satuan_type(
+        *,
+        type_id: int,
+        db: Session = Depends(deps.get_db),
+        response: Response) -> ResultModel:
+    try:
+        _type = crud.satuan_type.get(db=db, id=type_id)
+        if _type:
+            return ResultModel(count=1, data=_type.__dict__)
+        else:
+            return ResultModel(data={})
     except Exception as e:
         print(e)
         print(sys.exc_info())

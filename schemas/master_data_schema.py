@@ -18,6 +18,7 @@ class MasterData(Base):
     kabupaten = Column(Boolean, default=False)
     kecamatan = Column(Boolean, default=False)
     timeframe = Column(String(128), default='tahunan') # tahunan, semester, triwulan, bulanan, mingguan
+    # value_as = Column(String(128)) # sum_of_child, formula, normal, etc
 
     # Relationship
     children = relationship("MasterData",

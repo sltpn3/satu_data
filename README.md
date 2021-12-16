@@ -16,6 +16,11 @@ source <env_name>/bin/activate
 ```bash
 pip3 install -r requirements.txt
 ```
+### Run API
+
+```bash
+uvicorn main:app --host 0.0.0.0 --port 8080
+```
 
 ## Alembic
 #### Upgrade DB to latest revision

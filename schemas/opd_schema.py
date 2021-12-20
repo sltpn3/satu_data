@@ -9,7 +9,8 @@ from schemas.opd_urusan_schema import association_table
 
 class OPD(Base):
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(128), nullable=True, unique=True)
+    name = Column(String(128), nullable=True)
+    kode = Column(String(16), nullable=True, unique=True, index=True)
 
     # Relationship
     users = relationship("User", back_populates="organisasi")

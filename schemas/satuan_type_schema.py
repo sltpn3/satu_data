@@ -11,3 +11,6 @@ class SatuanType(Base):
     name = Column(String(512), nullable=False)
     store_column = Column(String(32), nullable=False)
     is_active = Column(Boolean, default=True)
+
+    # Relationship
+    satuans = relationship("Satuan", back_populates="tipe", uselist=True)

@@ -11,3 +11,6 @@ class Satuan(Base):
     name = Column(String(512), nullable=False)
     type = Column(Integer, ForeignKey('satuan_type.id'), nullable=False)
     is_active = Column(Boolean, default=True)
+
+    # Relationship
+    tipe = relationship("SatuanType", back_populates="satuans")

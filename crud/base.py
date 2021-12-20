@@ -72,7 +72,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
     def remove(self, db: Session, *, id: int) -> ModelType:
         obj = db.query(self.model).get(id)
         if hasattr(obj, 'is_active'):
-            '''if has attribute is_exist, deactivate row'''
+            '''if has attribute is_active, deactivate row'''
             obj.is_active = False
             db.add(obj)
             db.commit()

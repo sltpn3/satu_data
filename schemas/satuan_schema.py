@@ -10,3 +10,4 @@ class Satuan(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(512), nullable=False)
     type = Column(Integer, ForeignKey('satuan_type.id'), nullable=False)
+    is_active = Column(Boolean, default=True)

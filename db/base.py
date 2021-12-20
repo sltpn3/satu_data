@@ -9,4 +9,4 @@ from schemas.input_history_schema import InputHistory
 from schemas.urusan_schema import Urusan
 from schemas.status_update_schema import StatusUpdate
 from schemas.satuan_type_schema import SatuanType
-from schemas.satuan_schemas import Satuan
+from schemas.satuan_schema import Satuan

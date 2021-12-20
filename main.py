@@ -10,6 +10,7 @@
 from fastapi import FastAPI
 
 from routers.satuan_type_router import router as SatuanTypeRouter
+from routers.satuan_router import router as SatuanRouter
 
 app = FastAPI(
     title="SatuData API",
@@ -18,3 +19,4 @@ app = FastAPI(
 )
 
 app.include_router(SatuanTypeRouter)
+app.include_router(SatuanRouter)

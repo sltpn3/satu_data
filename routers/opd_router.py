@@ -14,7 +14,7 @@ from fastapi import (
     status,
 )
 
-from models.satuan_model import SatuanCreate, SatuanUpdate
+from models.opd_model import OPDCreate, OPDUpdate
 from models.result_model import ResultModel
 from libs.http_response import http_response
 
@@ -25,8 +25,8 @@ import crud
 import sys
 
 router = APIRouter(
-    prefix="/satuan",
-    tags=["Satuan"],
+    prefix="/opd",
+    tags=["OPD"],
     # dependencies=[Depends(get_token_header)],
     responses={404: {"description": "Not found"}},
 )
@@ -36,15 +36,16 @@ router = APIRouter(
     "/",
     responses=http_response(201, ResultModel),
     status_code=201,
+    summary='Create New OPD'
 )
-async def create_new_satuan(
+async def create_new_opd(
         *,
-        satuan_in: SatuanCreate,
+        opd_in: OPDCreate,
         db: Session = Depends(deps.get_db),
         response: Response) -> ResultModel:
     try:
-        satuan = crud.satuan.create(db=db, obj_in=satuan_in)
-        return ResultModel(data=satuan.__dict__)
+        opd = crud.opd.create(db=db, obj_in=opd_in)
+        return ResultModel(data=opd.__dict__)
     except Exception as e:
         print(e)
         print(sys.exc_info())
@@ -53,20 +54,21 @@ async def create_new_satuan(
 
 
 @router.post(
-    "/{satuan_id}",
+    "/{opd_id}",
     responses=http_response(201, ResultModel),
     status_code=201,
+    summary='Update OPD'
 )
-async def update_satuan(
+async def update_opd(
         *,
-        satuan_id: int,
-        satuan_in: SatuanUpdate,
+        opd_id: int,
+        opd_in: OPDUpdate,
         db: Session = Depends(deps.get_db),
         response: Response) -> ResultModel:
     try:
-        satuan_old = crud.satuan.get(db=db, id=satuan_id)
-        satuan = crud.satuan.update(db=db, db_obj=satuan_old, obj_in=satuan_in)
-        return ResultModel(data=satuan.__dict__)
+        opd_old = crud.opd.get(db=db, id=opd_id)
+        opd = crud.opd.update(db=db, db_obj=opd_old, obj_in=opd_in)
+        return ResultModel(data=opd.__dict__)
     except Exception as e:
         print(e)
         print(sys.exc_info())
@@ -75,18 +77,19 @@ async def update_satuan(
 
 
 @router.delete(
-    "/{satuan_id}",
+    "/{opd_id}",
     responses=http_response(200, ResultModel),
+    summary='Delete OPD'
 )
-async def delete_satuan(
+async def delete_opd(
         *,
-        satuan_id: int,
+        opd_id: int,
         db: Session = Depends(deps.get_db),
         response: Response) -> ResultModel:
     try:
-        satuan = crud.satuan.remove(
-            db=db, id=satuan_id)
-        return ResultModel(data=satuan.__dict__)
+        opd = crud.opd.remove(
+            db=db, id=opd_id)
+        return ResultModel(data=opd.__dict__)
     except Exception as e:
         print(e)
         print(sys.exc_info())
@@ -94,16 +97,18 @@ async def delete_satuan(
         return ResultModel(message=str(type(e)))
 
 
-@router.get('/{satuan_id}', responses=http_response(200, ResultModel))
-async def fetch_satuan(
+@router.get('/{opd_id}',
+            responses=http_response(200, ResultModel),
+            summary='Fetch OPD')
+async def fetch_opd(
         *,
-        satuan_id: int,
+        opd_id: int,
         db: Session = Depends(deps.get_db),
         response: Response) -> ResultModel:
     try:
-        satuan = crud.satuan.get(db=db, id=satuan_id)
-        if satuan:
-            return ResultModel(count=1, data=satuan.__dict__)
+        opd = crud.satuan.get(db=db, id=opd_id)
+        if opd:
+            return ResultModel(count=1, data=opd.__dict__)
         else:
             return ResultModel(data={})
     except Exception as e:

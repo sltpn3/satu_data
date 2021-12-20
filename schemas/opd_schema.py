@@ -11,9 +11,10 @@ class OPD(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(128), nullable=True)
     kode = Column(String(16), nullable=True, unique=True, index=True)
+    is_active = Column(Boolean, default=True)
 
     # Relationship
-    users = relationship("User", back_populates="organisasi")
+    users = relationship("User", back_populates="organisasi", uselist=True)
     urusans = relationship(
         "Urusan",
         secondary=association_table,

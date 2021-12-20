@@ -19,6 +19,7 @@ from models.result_model import ResultModel
 from libs.http_response import http_response
 
 from sqlalchemy.orm import Session
+from sqlalchemy.orm.exc import UnmappedInstanceError
 from libs import deps
 import crud
 
@@ -109,6 +110,63 @@ async def fetch_opd(
         opd = crud.satuan.get(db=db, id=opd_id)
         if opd:
             return ResultModel(count=1, data=opd.__dict__)
+        else:
+            return ResultModel(data={})
+    except Exception as e:
+        print(e)
+        print(sys.exc_info())
+        response.status_code = 500
+        return ResultModel(message=str(type(e)))
+
+
+@router.post("/{opd_id}/urusans",
+             responses=http_response(200, ResultModel),
+             summary='Add OPD Urusan'
+             )
+async def add_opd_urusan(
+        *,
+        opd_id: int,
+        urusan_ids: List[int],
+        db: Session = Depends(deps.get_db),
+        response: Response) -> ResultModel:
+    try:
+        opd = crud.opd.get(db=db, id=opd_id)
+        if not opd:
+            raise UnmappedInstanceError(opd, 'OPD does not exist')
+        '''Empty previous menus and replace with new ones'''
+        opd.urusans = []
+        for urusan_id in urusan_ids:
+            urusan = crud.urusan.get(db, id=urusan_id)
+            if not urusan:
+                raise UnmappedInstanceError(
+                    urusan, 'Urusan {} does not exist'.format(urusan_id))
+            opd.urusans.append(urusan)
+        db.add(opd)
+        db.commit()
+        return ResultModel(count=len(opd.urusans), data={'urusan': opd.urusans})
+    except UnmappedInstanceError as e:
+        response.status_code = 500
+        return ResultModel(message=str(e))
+    except Exception as e:
+        print(e)
+        print(sys.exc_info())
+        response.status_code = 500
+        return ResultModel(message=str(e))
+
+
+@router.get('/{opd_id}/urusans',
+            responses=http_response(200, ResultModel),
+            summary='Fetch OPD Urusan')
+async def fetch_opd_urusan(
+        *,
+        opd_id: int,
+        db: Session = Depends(deps.get_db),
+        response: Response) -> ResultModel:
+    try:
+        opd = crud.opd.get(db=db, id=opd_id)
+        if opd:
+            # print(role.menus)
+            return ResultModel(count=len(opd.urusans), data={'urusan': opd.urusans})
         else:
             return ResultModel(data={})
     except Exception as e:

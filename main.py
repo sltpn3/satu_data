@@ -9,9 +9,12 @@
 
 from fastapi import FastAPI
 
-from routers.satuan_type_router import router as SatuanTypeRouter
-from routers.satuan_router import router as SatuanRouter
+
 from routers.opd_router import router as OPDROuter
+from routers.satuan_router import router as SatuanRouter
+from routers.satuan_type_router import router as SatuanTypeRouter
+from routers.urusan_router import router as UrusanRouter
+
 from db import base_class
 
 app = FastAPI(
@@ -20,6 +23,8 @@ app = FastAPI(
     version="3.0",
 )
 
-app.include_router(SatuanTypeRouter)
-app.include_router(SatuanRouter)
 app.include_router(OPDROuter)
+app.include_router(SatuanRouter)
+app.include_router(SatuanTypeRouter)
+app.include_router(UrusanRouter)
+

@@ -13,9 +13,7 @@ class RoleBase(BaseModel):
 
 class RoleCreate(RoleBase):
     name: str
-    kode: str
 
 
 class RoleUpdate(RoleBase):
     name: str
-    kode: str

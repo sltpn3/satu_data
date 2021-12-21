@@ -17,6 +17,7 @@ class User(Base):
     no_hp = Column(String(32))
     no_kantor = Column(String(32))
     jabatan = Column(String(128))
+    is_active = Column(Boolean, default=True)
 
     # Relationship
     organisasi = relationship("OPD", back_populates="users")

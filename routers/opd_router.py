@@ -107,7 +107,7 @@ async def fetch_opd(
         db: Session = Depends(deps.get_db),
         response: Response) -> ResultModel:
     try:
-        opd = crud.satuan.get(db=db, id=opd_id)
+        opd = crud.opd.get(db=db, id=opd_id)
         if opd:
             return ResultModel(count=1, data=opd.__dict__)
         else:

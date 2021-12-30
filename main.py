@@ -10,6 +10,7 @@
 from fastapi import FastAPI
 
 
+from routers.master_data_router import router as MasterDataRouter
 from routers.opd_router import router as OPDROuter
 from routers.role_router import router as RoleRouter
 from routers.satuan_router import router as SatuanRouter
@@ -25,6 +26,7 @@ app = FastAPI(
     version="3.0",
 )
 
+app.include_router(MasterDataRouter)
 app.include_router(OPDROuter)
 app.include_router(RoleRouter)
 app.include_router(SatuanRouter)

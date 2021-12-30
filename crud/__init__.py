@@ -8,3 +8,4 @@ from .status_update_crud import status_update
 from .input_data_crud import input_data
 from .status_crud import status
 from .urusan_crud import urusan
+from .master_data_crud import master_data

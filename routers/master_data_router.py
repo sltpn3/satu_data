@@ -65,7 +65,7 @@ async def update_master_data(
         db: Session = Depends(deps.get_db),
         response: Response) -> ResultModel:
     try:
-        data_old = crud.opd.get(db=db, id=data_id)
+        data_old = crud.master_data.get(db=db, id=data_id)
         master_data = crud.master_data.update(
             db=db, db_obj=data_old, obj_in=data_in)
         return ResultModel(data=master_data.__dict__)
@@ -101,13 +101,13 @@ async def delete_master_data(
             )
 async def fetch_master_data(
         *,
-        opd_id: int,
+        data_id: int,
         db: Session = Depends(deps.get_db),
         response: Response) -> ResultModel:
     try:
-        opd = crud.master_data.get(db=db, id=opd_id)
-        if opd:
-            return ResultModel(count=1, data=opd.__dict__)
+        master_data = crud.master_data.get(db=db, id=data_id)
+        if master_data:
+            return ResultModel(count=1, data=master_data.__dict__)
         else:
             return ResultModel(data={})
     except Exception as e:

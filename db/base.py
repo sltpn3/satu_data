@@ -1,4 +1,4 @@
-from db.base_class import Base  
+from db.base_class import Base
 from schemas.user_schema import User
 from schemas.opd_schema import OPD
 from schemas.role_schema import Role
@@ -10,3 +10,4 @@ from schemas.urusan_schema import Urusan
 from schemas.status_update_schema import StatusUpdate
 from schemas.satuan_type_schema import SatuanType
 from schemas.satuan_schema import Satuan
+from schemas.validation_flow_schema import ValidationFlow

@@ -12,6 +12,7 @@ class Status(Base):
     role_in_process = Column(Integer, ForeignKey('role.id'))  # Foreign Key
     parent_id = Column(Integer, ForeignKey(
         'status.id'), index=True)
+    is_active = Column(Boolean, default=True)
 
     # Relationship
     children = relationship("Status",

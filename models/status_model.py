@@ -13,9 +13,11 @@ class StatusBase(BaseModel):
 
 class StatusCreate(StatusBase):
     name: str
-    kode: str
+    role_in_process: int
+    parent_id: Optional[int]
 
 
 class StatusUpdate(StatusBase):
-    name: str
-    kode: str
+    name: Optional[str]
+    role_in_process: Optional[int]
+    parent_id: Optional[int]

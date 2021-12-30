@@ -12,10 +12,18 @@ class InputDataBase(BaseModel):
 
 
 class InputDataCreate(InputDataBase):
-    name: str
-    kode: str
+    master_id: int
+    created_by: int
+    year: int
+    from_date: date
+    to_date: date
+    notes: Optional[str]
 
 
 class InputDataUpdate(InputDataBase):
-    name: str
-    kode: str
+    # master_id: int
+    # created_by: int
+    # year: int
+    # from_date: date
+    # to_date: date
+    notes: Optional[str]

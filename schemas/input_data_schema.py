@@ -17,6 +17,7 @@ class InputData(Base):
     from_date = Column(Date)
     to_date = Column(Date)
     notes = Column(String(256))
+    is_active = Column(Boolean, default=True)
 
     # Relationship
     input_histories = relationship("InputHistory", back_populates="input_data")

@@ -115,3 +115,24 @@ async def fetch_input_data(
         print(sys.exc_info())
         response.status_code = 500
         return ResultModel(message=str(type(e)))
+
+
+@router.get('/{data_id}/histories/',
+            responses=http_response(200, ResultModel),
+            )
+async def fetch_input_data_histories(
+        *,
+        data_id: int,
+        db: Session = Depends(deps.get_db),
+        response: Response) -> ResultModel:
+    try:
+        input_data = crud.input_data.get(db=db, id=data_id)
+        if input_data:
+            return ResultModel(count=1, data={'histories': input_data.input_histories})
+        else:
+            return ResultModel(data={})
+    except Exception as e:
+        print(e)
+        print(sys.exc_info())
+        response.status_code = 500
+        return ResultModel(message=str(type(e)))

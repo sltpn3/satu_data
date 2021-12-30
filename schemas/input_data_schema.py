@@ -20,4 +20,5 @@ class InputData(Base):
     is_active = Column(Boolean, default=True)
 
     # Relationship
-    input_histories = relationship("InputHistory", back_populates="input_data")
+    input_histories = relationship("InputHistory", back_populates="input_data",
+                                   order_by="asc(InputHistory.created_at)")

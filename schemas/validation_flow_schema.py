@@ -14,6 +14,4 @@ class ValidationFlow(Base):
     is_active = Column(Boolean, default=True)
 
     # Relationship
-    # input_history = relationship("InputHistory", back_populates="status_updates")
-    # updated_by = relationship("User", back_populates="status_updates")
-    # status = relationship("Status")
+    masters_data = relationship("MasterData", back_populates="validation_flow")

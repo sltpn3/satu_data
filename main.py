@@ -20,6 +20,7 @@ from routers.satuan_type_router import router as SatuanTypeRouter
 from routers.status_router import router as StatusRouter
 from routers.urusan_router import router as UrusanRouter
 from routers.user_router import router as UserRouter
+from routers.validation_flow_router import router as ValidationFlowRouter
 
 from db import base_class
 
@@ -39,3 +40,4 @@ app.include_router(SatuanTypeRouter)
 app.include_router(StatusRouter)
 app.include_router(UrusanRouter)
 app.include_router(UserRouter)
+app.include_router(ValidationFlowRouter)

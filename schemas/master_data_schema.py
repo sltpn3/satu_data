@@ -17,11 +17,16 @@ class MasterData(Base):
     provinsi = Column(Boolean, default=False)
     kabupaten = Column(Boolean, default=False)
     kecamatan = Column(Boolean, default=False)
-    timeframe = Column(String(128), default='tahunan') # tahunan, semester, triwulan, bulanan, mingguan
+    # tahunan, semester, triwulan, bulanan, mingguan
+    timeframe = Column(String(128), default='tahunan')
     is_active = Column(Boolean, default=True)
+    validation_flow_id = Column(Integer, ForeignKey('validation_flow.id'))
     # value_as = Column(String(128)) # sum_of_child, formula, normal, etc
 
     # Relationship
     children = relationship("MasterData",
                             backref=backref('parent', remote_side=[id])
                             )
+    validation_flow = relationship("ValidationFlow",
+                                   back_populates="masters_data"
+                                   )

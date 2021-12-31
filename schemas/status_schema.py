@@ -18,3 +18,5 @@ class Status(Base):
     children = relationship("Status",
                             backref=backref('parent', remote_side=[id])
                             )
+    role = relationship("Role", back_populates="statuses")
+    status_updates = relationship("StatusUpdate", back_populates="status")

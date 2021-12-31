@@ -113,3 +113,29 @@ async def fetch_user(
         print(sys.exc_info())
         response.status_code = 500
         return ResultModel(message=str(type(e)))
+
+@router.get('/{user_id}/updates',
+            responses=http_response(200, ResultModel),
+            description="Endpoint untuk mendapatakan data input untuk disetujui user terkait"
+            )
+async def fetch_user_updates(
+        *,
+        user_id: int,
+        db: Session = Depends(deps.get_db),
+        response: Response) -> ResultModel:
+    try:
+        user = crud.user.get(db=db, id=user_id)
+        if user:
+            updates = []
+            # print(user.role.statuses)
+            for status in user.role.statuses:
+                for update in status.status_updates:
+                    updates.append(update)
+            return ResultModel(count=1, data={'updates': updates})
+        else:
+            return ResultModel(data={})
+    except Exception as e:
+        print(e)
+        print(sys.exc_info())
+        response.status_code = 500
+        return ResultModel(message=str(type(e)))

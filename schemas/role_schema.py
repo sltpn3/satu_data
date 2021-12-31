@@ -13,3 +13,4 @@ class Role(Base):
 
     # Relationship
     users = relationship("User", back_populates="role")
+    statuses = relationship("Status", back_populates="role")

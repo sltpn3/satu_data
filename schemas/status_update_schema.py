@@ -19,4 +19,4 @@ class StatusUpdate(Base):
     # Relationship
     input_history = relationship("InputHistory", back_populates="status_updates")
     updated_by = relationship("User", back_populates="status_updates")
-    status = relationship("Status")
+    status = relationship("Status", back_populates="status_updates")

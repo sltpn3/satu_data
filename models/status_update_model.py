@@ -12,10 +12,14 @@ class StatusUpdateBase(BaseModel):
 
 
 class StatusUpdateCreate(StatusUpdateBase):
-    name: str
-    kode: str
+    status_updated_to: int
+    status_updated_by: int
+    input_history_id: int
+    created_at: Optional[datetime] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
 class StatusUpdateUpdate(StatusUpdateBase):
-    name: str
-    kode: str
+    status_updated_to: Optional[int]
+    status_updated_by: Optional[int]
+    input_history_id: Optional[int]
+    created_at: Optional[datetime] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')

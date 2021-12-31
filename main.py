@@ -18,6 +18,7 @@ from routers.role_router import router as RoleRouter
 from routers.satuan_router import router as SatuanRouter
 from routers.satuan_type_router import router as SatuanTypeRouter
 from routers.status_router import router as StatusRouter
+from routers.status_update_router import router as StatusUpdateRouter
 from routers.urusan_router import router as UrusanRouter
 from routers.user_router import router as UserRouter
 from routers.validation_flow_router import router as ValidationFlowRouter
@@ -38,6 +39,7 @@ app.include_router(RoleRouter)
 app.include_router(SatuanRouter)
 app.include_router(SatuanTypeRouter)
 app.include_router(StatusRouter)
+app.include_router(StatusUpdateRouter)
 app.include_router(UrusanRouter)
 app.include_router(UserRouter)
 app.include_router(ValidationFlowRouter)

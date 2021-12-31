@@ -15,6 +15,7 @@ from fastapi import (
 )
 
 from models.input_history_model import InputHistoryCreate, InputHistoryUpdate
+from models.status_update_model import StatusUpdateCreate
 from models.result_model import ResultModel
 from libs.http_response import http_response
 
@@ -98,7 +99,7 @@ async def create_new_input_history(
 #         return ResultModel(message=str(type(e)))
 
 
-@router.get('/{data_id}',
+@router.get('/{history_id}',
             responses=http_response(200, ResultModel),
             )
 async def fetch_input_history(
@@ -109,6 +110,38 @@ async def fetch_input_history(
     try:
         history = crud.input_history.get(db=db, id=history_id)
         if history:
+            return ResultModel(count=1, data=history.__dict__)
+        else:
+            return ResultModel(data={})
+    except Exception as e:
+        print(e)
+        print(sys.exc_info())
+        response.status_code = 500
+        return ResultModel(message=str(type(e)))
+
+
+@router.post('/{history_id}/validate',
+             responses=http_response(200, ResultModel),
+             )
+async def validate_input_history(
+        *,
+        history_id: int,
+        user_id: int,
+        db: Session = Depends(deps.get_db),
+        response: Response) -> ResultModel:
+    try:
+        history = crud.input_history.get(db=db, id=history_id)
+
+        if history:
+            status_role = history.status_updates[-1].status.role
+            user_role = crud.user.get(db=db, id=user_id).role
+            if status_role == user_role:
+                status_in = StatusUpdateCreate(
+                    status_updated_by=user_id,
+                    status_updated_to=history.status_updates[-1].status.children[0].id,
+                    input_history_id=history_id)
+                crud.status_update.create(db=db, obj_in=status_in)
+
             return ResultModel(count=1, data=history.__dict__)
         else:
             return ResultModel(data={})
